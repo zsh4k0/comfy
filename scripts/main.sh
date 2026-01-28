@@ -7,6 +7,6 @@ apt install htop -y
 
 source /scripts/py.sh
 source /scripts/uv.sh
-
+source /scripts/auto.sh
 
 tail -f /dev/null
