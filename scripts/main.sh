@@ -5,8 +5,8 @@ apt upgrade -y
 apt install neofetch -y
 apt install htop -y
 
-source py.sh
-source uv.sh
+source /scripts/py.sh
+source /scripts/uv.sh
 
 
 tail -f /dev/null
