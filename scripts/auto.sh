@@ -54,14 +54,21 @@ GPU_RAW=$(nvidia-smi | sed -nr '/\|[[:space:]]*[0-9]+[[:space:]]+NVIDIA/{s/.*[[:
 GPU=$(echo "$GPU_RAW" | sed 's/[[:space:]]*$//')
 
 echo "GPU detectada: '$GPU'"
-if [[ "$GPU" == "NVIDIA RTX A4000" ]]; then
-    cuda128;
-elif [[ "$GPU" == "NVIDIA GeForce GTX 1070" ]]; then
-    cuda121;
-else
-    echo "Es otra tarjeta: '$GPU'"
-fi
 
+case "$GPU" in
+    "NVIDIA RTX A4000")
+        cuda128
+        ;;
+    "NVIDIA GeForce GTX 1070")
+        cuda121
+        ;;
+    "NVIDIA GeForce RTX 3070")
+        cuda128
+        ;;
+    *)
+        echo "Es otra tarjeta: '$GPU'"
+        ;;
+esac
 
 
 # 8. Verificar instalación de PyTorch
