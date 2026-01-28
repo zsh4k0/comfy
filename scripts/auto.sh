@@ -40,9 +40,29 @@ echo "Actualizando pip..."
 python3 -m pip install --upgrade pip
 #pip install uv
 
-# 7. Instalar PyTorch con CUDA 12.1
+# Instalar PyTorch
+cuda121() {
 echo "Instalando PyTorch con CUDA 12.1..."
 uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+}
+cuda128() {
+echo "Instalando PyTorch con CUDA 12.8..."
+uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+}
+
+GPU_RAW=$(nvidia-smi | sed -nr '/\|[[:space:]]*[0-9]+[[:space:]]+NVIDIA/{s/.*[[:space:]]+(NVIDIA[^|]+)[[:space:]]+(On|Off).*/\1/p; q}')
+GPU=$(echo "$GPU_RAW" | sed 's/[[:space:]]*$//')
+
+echo "GPU detectada: '$GPU'"
+if [[ "$GPU" == "NVIDIA RTX A4000" ]]; then
+    cuda128;
+elif [[ "$GPU" == "NVIDIA GeForce GTX 1070" ]]; then
+    cuda121;
+else
+    echo "Es otra tarjeta: '$GPU'"
+fi
+
+
 
 # 8. Verificar instalación de PyTorch
 echo "Verificando PyTorch..."
