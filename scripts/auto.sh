@@ -66,7 +66,8 @@ case "$GPU" in
         cuda128
         ;;
     *)
-        echo "Es otra tarjeta: '$GPU'"
+        echo "Es otra tarjeta: '$GPU'";
+        cuda128;
         ;;
 esac
 
